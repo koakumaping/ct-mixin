@@ -476,6 +476,21 @@ export default {
       }
       return '--'
     },
+    handleTodoDelete(id, AppId, SysId) {
+      const params = {
+        appid: AppId,
+        id: id,
+        sys: SysId,
+      }
+      this.r().delete('/ctoa/plat/oaplattask', { params }).then(respones => {
+        this.$notice.success({
+          title: '提示',
+          content: '操作成功',
+        })
+        this.clearSelection()
+        this.reload()
+      })
+    },
   },
   beforeRouteUpdate(to, from, next) {
     this.doSaveStroage()
