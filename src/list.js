@@ -476,11 +476,11 @@ export default {
       }
       return '--'
     },
-    handleTodoDelete(id, AppId, SysId) {
+    handleTodoDelete(row) {
       const params = {
-        appid: AppId,
-        id: id,
-        sys: SysId,
+        appid: row.appid,
+        id: row.Id,
+        sys: row.sys,
       }
       this.r().delete('/ctoa/plat/oaplattask', { params }).then(respones => {
         this.$notice.success({
