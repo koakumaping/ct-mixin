@@ -235,7 +235,7 @@ export default {
         if (cData.rows && isArray(cData.rows) && cData.rows.length > 0) {
           const c = cData.rows[0]
           for (const key in c) {
-            if (key.indexOf('tbl') === 0) {
+            if (key.indexOf('tbl') === 0 || key.indexOf('type3') === 0) {
               this.customConfig[key] = c[key].customsetconfig
             }
           }
@@ -256,7 +256,7 @@ export default {
       const _data = this.getData(payload.data, true)
       this.form = _data.rows[0] || {}
       for (const key in this.form) {
-        if (key.indexOf('tbl') === 0) {
+        if (key.indexOf('tbl') === 0 || key.indexOf('type3') === 0) {
           this.childFormDeleteList[key] = []
           this.handleChildPermission(key, this.form[key].purview)
           this.form[key] = this.form[key].rows
@@ -282,7 +282,7 @@ export default {
       // _payload = this.restoreChildFrom(_payload)
 
       for (const key in _payload) {
-        if (key.indexOf('tbl') === 0) {
+        if (key.indexOf('tbl') === 0 || key.indexOf('type3') === 0) {
           _payload[key] = {
             type: '3',
             value: {
@@ -376,7 +376,7 @@ export default {
       const _payload = clone(payload)
 
       for (const key in this.form) {
-        if (key.indexOf('tbl') === 0) {
+        if (key.indexOf('tbl') === 0 || key.indexOf('type3') === 0) {
           const needRestore = !this.ignoreChildFormList.includes(key)
           console.log(needRestore, key)
           _payload.rows[0][key] = {
@@ -554,7 +554,7 @@ export default {
       for (const key in this.form) {
         const currentValue = this.form[key]
         const originValue = this.dd[key]
-        if (key.indexOf('tbl') === -1) {
+        if (key.indexOf('tbl') === -1  || key.indexOf('type3') === -1) {
           console.log('table', key, originValue, currentValue)
           if (originValue !== currentValue && this.isBasicType(currentValue)) {
             const _item = this._.clone(this.changeItemExample)
