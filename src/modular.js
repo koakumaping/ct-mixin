@@ -77,6 +77,8 @@ export default {
       },
       // 表名（主表）
       tableName: '',
+      // 子表
+      childTableName: '',
       // form表单
       form: {},
       // 附加的表单（暂时有薪资）
@@ -479,7 +481,7 @@ export default {
       if (attachmentLength === 0 && !isEdit) return false
       return true
     },
-    saveChildFrom(payload, formName) {
+    saveChildFrom(payload, formName = this.childTableName) {
       // 判断是编辑还是新增
       if (payload.edit) {
         this.$set(this.form[formName], this.editId, payload.form)
@@ -488,7 +490,7 @@ export default {
       this.form[formName].push(this._.clone(payload.form))
     },
     // 往子表中的插一条数据
-    addToChildFormList(formName) {
+    addToChildFormList(formName = this.childTableName) {
       this.form[formName].push(this._.clone(this.template[formName]))
     },
     // 删除子表中的一条数据
