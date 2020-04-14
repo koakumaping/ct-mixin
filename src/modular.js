@@ -333,7 +333,7 @@ export default {
       const { boxid, flowid, workflowid, childworkflowid } = flowinfo
       const formdata = {
         Id: flowinfo.id,
-        flag: flag ? flag : 1,
+        flag: flag ? 2 : 1,
         boxid,
         flowid,
         workflowid,
