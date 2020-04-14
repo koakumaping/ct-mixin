@@ -623,7 +623,7 @@ export default {
         const sucessCallback = (response) => {
           this.p.flowsave = false
           this.p.flowsend = false
-          if (doFlow === true) {
+          if (doFlow) {
             const flowinfo = response.flowinfo || this.flowinfo
             this.handleFlow(flowinfo, isString(doFlow))
           } else {
