@@ -329,11 +329,11 @@ export default {
       return result
     },
     // 发送流程信息，取得接下来走流程要用到的数据，然后展示出来供用户选择
-    handleFlow(flowinfo = this.flowinfo) {
+    handleFlow(flowinfo = this.flowinfo, flag = false) {
       const { boxid, flowid, workflowid, childworkflowid } = flowinfo
       const formdata = {
         Id: flowinfo.id,
-        flag: this.rejectFlow,
+        flag: flag ? flag : 1,
         boxid,
         flowid,
         workflowid,
@@ -608,15 +608,15 @@ export default {
       if (!pass) return false
       let params = {
         Id: this.id,
-        tt: doFlow ? 'submit' : 'save',
+        tt: isString(doFlow) ? doFlow : doFlow ? 'submit' : 'save',
       }
+
       params = Object.assign(params, this.requestQuery())
       if (this._.hasOwn(params, 'id')) delete params.id
       const formdata = handleDd ? this.handleDd(this.tableName) : this.form
 
       this.loading = true
       // this.handleDiff()
-      console.log('changeList', this.formChangeList)
       formdata.modifylog = this.formChangeList
 
       return new Promise((resolve, reject) => {
@@ -625,7 +625,7 @@ export default {
           this.p.flowsend = false
           if (doFlow === true) {
             const flowinfo = response.flowinfo || this.flowinfo
-            this.handleFlow(flowinfo)
+            this.handleFlow(flowinfo, isString(doFlow))
           } else {
             if (this.isBasic) {
               this.$notice.success({
@@ -665,7 +665,7 @@ export default {
     // 提交数据 退回
     async rejectSubmit() {
       this.rejectFlow = 2
-      await this.submit(true, true, this.routerName)
+      await this.submit('reject', true, this.routerName)
     },
   },
 }
