@@ -273,7 +273,7 @@ export default {
       this.cols.forEach((element, index) => {
         element.key = this._.randomString(12, true)
         element.sort = index
-        element.minWidth = 120
+        element.minWidth = element.width || 120
         if (!defaultSort.order && element.datasort) {
           defaultSort.prop = element.prop
           if (element.datasort === 1) defaultSort.order = 'ascending'
