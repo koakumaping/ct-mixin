@@ -2,6 +2,7 @@ import {
   isString,
   hasChinese,
   isArray,
+  isObject,
   hasOwn,
   toNumber,
   clone,
@@ -545,8 +546,8 @@ export default {
       return false
     },
     isBasicType(payload) {
-      if (this._.isObject(payload)) return false
-      if (this._.isArray(payload)) return false
+      if (isObject(payload)) return false
+      if (isArray(payload)) return false
       return true
     },
     // 对比数据差异
@@ -666,6 +667,11 @@ export default {
     async rejectSubmit() {
       this.rejectFlow = 2
       await this.submit('reject', true, this.routerName)
+    },
+    setName(key, value, index = -1) {
+      let line = this.form
+      if (index > -1) line = this.form[this.childTableName][index]
+      line[key] = isArray(value.label) ? value.label[0] : value.label
     },
   },
 }
