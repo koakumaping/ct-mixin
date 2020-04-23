@@ -331,7 +331,16 @@ export default {
     },
     // 发送流程信息，取得接下来走流程要用到的数据，然后展示出来供用户选择
     handleFlow(flowinfo = this.flowinfo, flag = false) {
-      const { boxid, flowid, workflowid, childworkflowid } = flowinfo
+      const {
+        boxid,
+        flowid,
+        workflowid,
+        childworkflowid,
+        currentuserid,
+        currentusername,
+        currentdeptid,
+        currentdeptname,
+      } = flowinfo
       const formdata = {
         Id: flowinfo.id,
         flag: flag ? 2 : 1,
@@ -339,6 +348,10 @@ export default {
         flowid,
         workflowid,
         childworkflowid,
+        currentuserid,
+        currentusername,
+        currentdeptid,
+        currentdeptname,
       }
 
       if (hasOwn(flowinfo, 'PartSendId')) formdata.PartSendId = flowinfo.PartSendId
