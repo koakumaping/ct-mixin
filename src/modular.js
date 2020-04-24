@@ -6,6 +6,8 @@ import {
   hasOwn,
   toNumber,
   clone,
+  isEmptyObject,
+  isEmpty,
 } from 'ct-util'
 import { mapGetters, mapMutations } from 'vuex'
 import emitter from './emitter'
@@ -436,7 +438,7 @@ export default {
       })
     },
     getGlobalList(name = '', options = {}, callback = () => {}) {
-      if (!name || this._.isEmptyObject(options)) {
+      if (!name || isEmptyObject(options)) {
         console.warn('getGlobalList need name or option')
         return false
       }
@@ -456,7 +458,7 @@ export default {
       })
     },
     getPeopleGlobalList(name = '', options = {}) {
-      if (!name || this._.isEmptyObject(options)) {
+      if (!name || isEmptyObject(options)) {
         console.warn('getPeopleGlobalList need name or option')
         return false
       }
@@ -476,7 +478,7 @@ export default {
       })
     },
     getGlobalDictList(name = '', options = {}) {
-      if (!name || this._.isEmptyObject(options)) {
+      if (!name || isEmptyObject(options)) {
         return false
       }
 
