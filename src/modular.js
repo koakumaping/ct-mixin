@@ -122,6 +122,8 @@ export default {
       customConfig: {},
       // 1 不退回， 2 退回
       rejectFlow: 1,
+      // 人员列表
+      nameList: [],
     }
   },
   computed: {
@@ -341,6 +343,7 @@ export default {
         currentdeptid,
         currentdeptname,
       } = flowinfo
+
       const formdata = {
         Id: flowinfo.id,
         flag: flag ? 2 : 1,
@@ -617,7 +620,6 @@ export default {
     // 提交数据 保存时不走流程
     async submit(doFlow = this.doFlow, handleDd = true, routerName = this.routerName) {
       if (this.handleSubmit()) return false
-      console.log('doFlow', doFlow)
       const pass = await this.formCheckError('form')
       if (!pass) return false
       let params = {
@@ -685,6 +687,20 @@ export default {
       let line = this.form
       if (index > -1) line = this.form[this.childTableName][index]
       line[key] = isArray(value.label) ? value.label[0] : value.label
+    },
+    getNameList(payload) {
+      if (isEmpty(payload)) {
+        this.nameList = []
+        return false
+      }
+      const options = {
+        name: payload,
+        RetNewFormat: 1,
+        ContainDelUser: 0,
+      }
+      this.getPeopleGlobalList('User', options).then(response => {
+        this.nameList = response
+      })
     },
   },
 }
