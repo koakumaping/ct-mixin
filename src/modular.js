@@ -688,7 +688,7 @@ export default {
     setName(key, value, index = -1) {
       let line = this.form
       if (index > -1) line = this.form[this.childTableName][index]
-      line[key] = isArray(value.label) ? value.label[0] : value.label
+      line[key] = value.text || (isArray(value.label) ? value.label[0] : value.label)
     },
     getNameList(payload) {
       if (isEmpty(payload)) {
